@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'purchase_price' => 10000,
             'selling_price' => 15000,
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            'image' => 'https://picsum.photos/200/300',
         ]);        
         Product::create([
             'name' => 'Product 2',
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'purchase_price' => 10000,
             'selling_price' => 15000,
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            'image' => 'https://picsum.photos/200/300',
         ]);        
         Product::create([
             'name' => 'Product 3',
@@ -40,6 +42,7 @@ class DatabaseSeeder extends Seeder
             'purchase_price' => 10000,
             'selling_price' => 15000,
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            'image' => 'https://picsum.photos/200/300',
         ]);
         
 

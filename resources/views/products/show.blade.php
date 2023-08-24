@@ -3,7 +3,7 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6">
-                <img src="https://picsum.photos/500/300" alt="Product Image" class="img-fluid mb-4">
+                <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="img-fluid mb-4">
             </div>
             <div class="col-md-6">
                 <h2>{{ $product->name }}</h2>
@@ -19,8 +19,12 @@
                 <div>
                     <button class="btn btn-primary"><a href="{{ $product->id }}/edit"
                             class="text-white text-decoration-none">Edit</a></button>
-                    <button class="btn btn-danger"><a href="products/{{ $product->id }}/edit"
-                            class="text-white text-decoration-none">Delete</a></button>
+                    <form action="{{ route('products.destroy', $product->id) }}" method="post" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>

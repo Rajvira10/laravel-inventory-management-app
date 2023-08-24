@@ -39,6 +39,12 @@ class ProductController extends Controller
         $product->purchase_price = request('purchase_price');
         $product->selling_price = request('selling_price');
         $product->description = request('description');
+
+        if(request()->hasFile('image')){
+            $file = request()->file('image')->store('images','public');
+            $product->image = $file;
+        }
+
         $product->save();
         return redirect('/');
     }
@@ -61,6 +67,11 @@ class ProductController extends Controller
         $product->purchase_price = request('purchase_price');
         $product->selling_price = request('selling_price');
         $product->description = request('description');
+        
+        if(request()->hasFile('image')){
+            $file = request()->file('image')->store('images','public');
+            $product->image = $file;
+        }
         $product->save();
         return redirect('/');
     }
