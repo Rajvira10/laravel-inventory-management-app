@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('invoice_no');
-            $table->string('customer_name')
+            $table->string('customer_name');
             $table->string('customer_email');
             $table->string('payment_method');
             $table->timestamps();
