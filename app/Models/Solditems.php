@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Solditems;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Order extends Model
+class Solditems extends Model
 {
     use HasFactory;
-    public function soldItems()
+        public function order()
     {
-        return $this->hasMany(Solditems::class);
+        return $this->belongsTo(Order::class);
     }
+
 }
