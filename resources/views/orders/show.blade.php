@@ -14,8 +14,20 @@
                 <p><strong>Payment Method:</strong> {{ $order->payment_method }}</p>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 d-flex justify-content-start align-items-center">
             <a href="{{ route('orders.index') }}" class="btn btn-secondary">Back to Orders</a>
+            <button class="btn btn-primary btn-sm ml-2"><a href={{ route('orders.edit', $order->id) }}
+                    class="text-white text-decoration-none">Edit</a>
+            </button>
+            <form action="{{ route('orders.destroy', $order->id) }}" method="post" class="d-inline ml-2">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm"
+                    onclick="return confirm('Are you sure you want to delete this order?')">
+                    Delete
+                </button>
+            </form>
+
         </div>
 
         <h2>Sold Items</h2>

@@ -2,9 +2,11 @@
 
 @section('content')
     <div class="container py-5">
-        <h2 class="mb-4">Products</h2>
+        <div class="row d-flex justify-content-around align-items-center">
+            <h2 class="mb-4 ">Products</h2>
 
-        <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Create Product</a>
+            <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Create Product</a>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped">

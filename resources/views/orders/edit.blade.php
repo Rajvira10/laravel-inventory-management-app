@@ -45,18 +45,18 @@
                                     @foreach ($order->soldItems as $soldItem)
                                         <tr>
                                             <td>
-                                                <select value={{ $soldItem->product_name }} name="product_id"
-                                                    class="form-control" required>
+                                                <select name="product_id[]" class="form-control" required>
                                                     @foreach ($allproducts as $product)
-                                                        <option value={{ $product->id }}>{{ $product->name }}</option>
+                                                        <option
+                                                            {{ $product->id === $soldItem->product_id ? 'selected' : '' }}
+                                                            value="{{ $product->id }}">{{ $product->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                             <td><input class="form-control" type="number" value="{{ $soldItem->quantity }}"
-                                                    name="product_quantity"></td>
+                                                    name="product_quantity[]"></td>
                                         </tr>
                                     @endforeach
-                                    <!-- Add more rows for additional products -->
                                 </tbody>
                             </table>
                             <button type="button" class="btn btn-success btn-sm mt-2" id="addProduct">Add Product</button>
@@ -74,16 +74,16 @@
             var tableBody = document.querySelector('table tbody');
             var newRow = document.createElement('tr');
             newRow.innerHTML = `
-             <td>
-                                                <select name="product_id"
-                                                    class="form-control" required>
-                                                    @foreach ($allproducts as $product)
-                                                        <option value={{ $product->id }}>{{ $product->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-            <td><input type="number" name="product_quantity[]" class="form-control"></td>
-        `;
+    <td>
+        <select name="product_id[]" class="form-control" required>
+            @foreach ($allproducts as $product)
+                <option value="{{ $product->id }}">{{ $product->name }}</option>
+            @endforeach
+        </select>
+    </td>
+    <td><input type="number" name="product_quantity[]" class="form-control"></td>
+`;
+
             tableBody.appendChild(newRow);
         });
     </script>

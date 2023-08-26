@@ -62,14 +62,20 @@ class OrderController extends Controller
         $order->payment_method = request('payment_method');
         $order->save();
 
-        $solditems = new Solditems();
-        $solditems->order_id = $order->id;
-        $solditems->product_id = request('product_id');        
-        $solditems->quantity = request('quantity');
+        $productIds = request('product_ids');
+        $quantities = request('quantities');
 
-        $solditems->save();
+        for ($i = 0; $i < count($productIds); $i++) {
+            $solditems = new Solditems();
+            $solditems->order_id = $order->id;
+            $solditems->product_id = $productIds[$i];
+            $solditems->quantity = $quantities[$i];
+            $solditems->save();
+        }
+
         return redirect()->route('orders.index');
     }
+
 
     //edit order
     public function edit($id)
@@ -84,27 +90,31 @@ class OrderController extends Controller
         return view('orders.edit',[
             'order' => Order::find($id),
             'allproducts' => $products,
-            'order' => $order,
         ]);
     }
 
     //update order
-    public function update($id)
-    {
-        $order = Order::find($id);
-        $order->customer_email = request('customer_email');
-        $order->customer_name = request('customer_name');
-        $order->payment_method = request('payment_method');
-        $order->save();
+public function update($id)
+{
+    $order = Order::find($id);
+    $order->customer_email = request('customer_email');
+    $order->customer_name = request('customer_name');
+    $order->payment_method = request('payment_method');
+    $order->save();
 
-        $solditems = new Solditems();
-        $solditems->order_id = $order->id;
-        $solditems->product_id = request('product_id');        
-        $solditems->quantity = request('quantity');
-
-        $solditems->save();
-        return redirect()->route('orders.index');
+    $productIds = request('product_id');
+    $quantities = request('product_quantity');
+    $index = 0;
+    foreach ($order->soldItems as $soldItem) {
+        $soldItem->product_id = $productIds[$index];
+        $soldItem->quantity = $quantities[$index];
+        $soldItem->save();
+        $index++;
     }
+
+    return redirect()->route('orders.index');
+}
+
 
     public function destroy($id)
     {
