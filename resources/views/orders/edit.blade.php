@@ -55,6 +55,8 @@
                                             </td>
                                             <td><input class="form-control" type="number" value="{{ $soldItem->quantity }}"
                                                     name="product_quantity[]"></td>
+                                            <td><button type="button"
+                                                    class="btn btn-danger btn-sm delete-row">Delete</button></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -68,23 +70,32 @@
             </div>
         </div>
     </div>
-
+    <!-- Inside your existing script tag -->
     <script>
         document.getElementById('addProduct').addEventListener('click', function() {
             var tableBody = document.querySelector('table tbody');
             var newRow = document.createElement('tr');
             newRow.innerHTML = `
-    <td>
-        <select name="product_id[]" class="form-control" required>
-            @foreach ($allproducts as $product)
-                <option value="{{ $product->id }}">{{ $product->name }}</option>
-            @endforeach
-        </select>
-    </td>
-    <td><input type="number" name="product_quantity[]" class="form-control"></td>
-`;
+            <td>
+                <select name="product_id[]" class="form-control" required>
+                    @foreach ($allproducts as $product)
+                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td><input type="number" name="product_quantity[]" class="form-control"></td>
+            <td><button type="button" class="btn btn-danger btn-sm delete-row">Delete</button></td>
+        `;
 
             tableBody.appendChild(newRow);
+        });
+
+        // Delete button functionality
+        document.addEventListener('click', function(event) {
+            if (event.target && event.target.classList.contains('delete-row')) {
+                var row = event.target.closest('tr');
+                row.remove();
+            }
         });
     </script>
 @endsection

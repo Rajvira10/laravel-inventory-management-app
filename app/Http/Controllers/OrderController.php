@@ -102,18 +102,24 @@ public function update($id)
     $order->payment_method = request('payment_method');
     $order->save();
 
+    // Remove existing soldItems
+    $order->soldItems()->delete();
+
     $productIds = request('product_id');
     $quantities = request('product_quantity');
-    $index = 0;
-    foreach ($order->soldItems as $soldItem) {
-        $soldItem->product_id = $productIds[$index];
-        $soldItem->quantity = $quantities[$index];
+
+    // Create new soldItems based on the new product IDs and quantities
+    for ($i = 0; $i < count($productIds); $i++) {
+        $soldItem = new Solditems();
+        $soldItem->order_id = $order->id;
+        $soldItem->product_id = $productIds[$i];
+        $soldItem->quantity = $quantities[$i];
         $soldItem->save();
-        $index++;
     }
 
     return redirect()->route('orders.index');
 }
+
 
 
     public function destroy($id)
