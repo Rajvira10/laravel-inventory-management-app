@@ -2,15 +2,14 @@
 
 @section('content')
     <div class="container py-5">
-        <div class="row d-flex justify-content-around align-items-center">
-            <h2 class="mb-4 fw-bold text-secondary">Products</h2>
-
+        <div class="row d-flex justify-content-between align-items-center">
+            <h2 class="mb-4 fw-bold text-primary">Products</h2>
             <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Create Product</a>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="thead-light">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Sku</th>
@@ -24,11 +23,11 @@
                     @foreach ($products as $product)
                         <tr>
                             <td><a href="products/{{ $product->id }}"
-                                    class="text-decoration-none text-dark">{{ $product->name }}</a></td>
+                                    class="text-decoration-none text-primary">{{ $product->name }}</a></td>
                             <td>{{ $product->sku }}</td>
                             <td>{{ $product->stock }}</td>
-                            <td>{{ $product->purchase_price }}</td>
-                            <td>{{ $product->selling_price }}</td>
+                            <td>${{ $product->purchase_price }}</td>
+                            <td>${{ $product->selling_price }}</td>
                             <td>
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                 <form action="{{ route('products.destroy', $product->id) }}" method="post"

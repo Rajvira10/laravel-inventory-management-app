@@ -101,6 +101,9 @@ public function update($id)
     $order->customer_name = request('customer_name');
     $order->payment_method = request('payment_method');
     $order->save();
+    //update the updated_at column of the order
+    $order->touch();
+
 
     // Remove existing soldItems
     $order->soldItems()->delete();

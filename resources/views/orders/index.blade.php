@@ -1,15 +1,14 @@
 @extends('layout')
 @section('content')
     <div class="container py-5">
-        <div class="row d-flex justify-content-around align-items-center">
-            <h2 class="mb-4 fw-bold text-secondary">Orders</h2>
-
+        <div class="row d-flex justify-content-between align-items-center">
+            <h2 class="mb-4 fw-bold text-primary">Orders</h2>
             <a href="{{ route('orders.create') }}" class="btn btn-success mb-3">Create Order</a>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="thead-light">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Invoice Number</th>
                         <th scope="col">Customer Name</th>
@@ -22,14 +21,13 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td><a href="orders/{{ $order->id }}"
-                                    class="text-decoration-none text-dark">{{ $order->invoice_no }}</a></td>
+                                    class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
                             <td>{{ $order->customer_name }}</td>
                             <td>{{ $order->customer_email }}</td>
                             <td>{{ $order->payment_method }}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm"><a href="orders/{{ $order->id }}/edit"
-                                        class="text-white text-decoration-none">Edit</a>
-                                </button>
+                                        class="text-white text-decoration-none">Edit</a></button>
                                 <form action="{{ route('orders.destroy', $order->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')

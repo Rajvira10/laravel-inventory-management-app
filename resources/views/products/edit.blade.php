@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="text-start">
-            <h2>Edit Product</h2>
+            <h2 class="mb-4">Edit Product</h2>
             <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -38,7 +38,7 @@
                 <div class="mb-3">
                     <label for="image" class="form-label">Image:</label>
                     <input type="file" class="form-control" id="image" name="image">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="img-fluid mb-4">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="img-fluid rounded mb-4">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Product</button>
