@@ -16,6 +16,7 @@
                 <p><strong class="text-secondary">Payment Method:</strong> {{ $order->payment_method }}</p>
                 <p><strong class="text-secondary">Created At:</strong> {{ $order->created_at->format('F j, Y g:i A') }}</p>
                 <p><strong class="text-secondary">Updated At:</strong> {{ $order->updated_at->format('F j, Y g:i A') }}</p>
+                <p><strong class="text-success">Total Price:</strong> ${{ $totalPrice }} </p>
             </div>
         </div>
         <div class="mt-4 d-flex justify-content-start align-items-center">

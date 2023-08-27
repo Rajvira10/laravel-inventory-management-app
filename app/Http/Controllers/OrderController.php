@@ -24,8 +24,13 @@ class OrderController extends Controller
             $item->product_name = Product::find($item->product_id)->name;
             return $item;
         });
-    
-        return view('order.show', compact('order'));
+        
+        $totalPrice = 0;
+        foreach ($order->soldItems as $item) {
+            $totalPrice += $item->quantity * Product::find($item->product_id)->selling_price;
+        }
+
+        return view('order.show', compact('totalPrice', 'order'));
     }
 
     public function create()
