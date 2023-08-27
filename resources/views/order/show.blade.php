@@ -37,15 +37,19 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>#</th> <!-- Indexing column -->
                                 <th>Product Name</th>
                                 <th>Quantity</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order->soldItems as $soldItem)
+                            @foreach ($order->soldItems as $index => $soldItem)
                                 <tr>
+                                    <td>{{ $index + 1 }}</td>
                                     <td>{{ $soldItem->product_name }}</td>
                                     <td>{{ $soldItem->quantity }}</td>
+                                    <td>${{ $soldItem->product_price }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -53,5 +57,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

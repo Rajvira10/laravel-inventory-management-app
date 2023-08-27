@@ -37,13 +37,16 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Product Name</th>
                                         <th>Quantity</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($order->soldItems as $soldItem)
+                                    @foreach ($order->soldItems as $index => $soldItem)
                                         <tr>
+                                            <td>{{ $index + 1 }}</td>
                                             <td>
                                                 <select name="product_id[]" class="form-control" required>
                                                     @foreach ($allproducts as $product)
@@ -53,8 +56,8 @@
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td><input class="form-control" type="number" value="{{ $soldItem->quantity }}"
-                                                    name="product_quantity[]"></td>
+                                            <td><input class="form-control" type="number"
+                                                    value="{{ $soldItem->quantity }}" name="product_quantity[]"></td>
                                             <td><button type="button"
                                                     class="btn btn-danger btn-sm delete-row">Delete</button></td>
                                         </tr>

@@ -22,6 +22,7 @@ class OrderController extends Controller
 
         $order->soldItems->map(function ($item) {
             $item->product_name = Product::find($item->product_id)->name;
+            $item->product_price = Product::find($item->product_id)->selling_price * $item->quantity;
             return $item;
         });
         

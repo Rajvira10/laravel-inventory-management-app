@@ -10,6 +10,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Invoice Number</th>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Customer Email</th>
@@ -18,8 +19,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $order)
+                    @foreach ($orders as $index => $order)
                         <tr>
+                            <td>{{ $index + 1 }}</td>
                             <td><a href="{{ route('order.show', $order->id) }}"
                                     class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
                             <td>{{ $order->customer_name }}</td>

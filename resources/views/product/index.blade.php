@@ -11,6 +11,7 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Sku</th>
                         <th scope="col">Stock</th>
@@ -20,9 +21,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($products as $index => $product)
                         <tr>
-                            <td><a href="products/{{ $product->id }}" class="text-decoration-none text-primary">{{ $product->name }}</a></td>
+                            <td>{{ $index + 1 }}</td>
+                            <td><a href="{{ route('product.show', $product->id) }}"
+                                    class="text-decoration-none text-primary">{{ $product->name }}</a></td>
                             <td>{{ $product->sku }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>${{ $product->purchase_price }}</td>
@@ -32,7 +35,8 @@
                                 <form action="{{ route('product.delete', $product->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirm('Are you sure you want to delete this product?')">
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="confirm('Are you sure you want to delete this product?')">
                                         Delete
                                     </button>
                                 </form>
