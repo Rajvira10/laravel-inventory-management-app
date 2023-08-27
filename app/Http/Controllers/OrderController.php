@@ -81,6 +81,12 @@ class OrderController extends Controller
             
             $solditems->quantity = $quantities[$i];
             
+            //remove items from product stock
+            $product = Product::find($productIds[$i]);
+            $product->stock = $product->stock - $quantities[$i];
+
+            $product->save();
+
             $solditems->save();
         }
 
@@ -123,8 +129,11 @@ class OrderController extends Controller
         
         $quantities = $request->product_quantity;
 
+
+
         for ($i = 0; $i < count($productIds); $i++) 
-        {
+        {   
+
             $soldItem = new Solditems();
             
             $soldItem->order_id = $order->id;
