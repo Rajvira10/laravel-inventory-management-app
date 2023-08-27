@@ -12,7 +12,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::simplepaginate(10);
         return view('order.index', compact('orders'));
     }
 
@@ -20,16 +20,15 @@ class OrderController extends Controller
     {
         $order = Order::with('soldItems')->find($order_id);
 
-        $order->soldItems->map(function ($item) {
-            $item->product_name = Product::find($item->product_id)->name;
-            $item->product_price = Product::find($item->product_id)->selling_price * $item->quantity;
-            return $item;
-        });
-        
         $totalPrice = 0;
-        foreach ($order->soldItems as $item) {
-            $totalPrice += $item->quantity * Product::find($item->product_id)->selling_price;
-        }
+
+        $order->soldItems->map(function ($item) use (&$totalPrice) {
+            $product = Product::find($item->product_id);
+            $item->product_name = $product->name;
+            $item->unit_price = $product->selling_price;
+            $item->subtotal = $product->selling_price * $item->quantity;
+            $totalPrice += $item->subtotal;
+        });
 
         return view('order.show', compact('totalPrice', 'order'));
     }

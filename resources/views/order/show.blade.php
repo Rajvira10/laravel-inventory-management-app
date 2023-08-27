@@ -36,22 +36,28 @@
                 <div class="card-body">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>#</th> <!-- Indexing column -->
+                            <tr class="text-right">
+                                <th>#</th>
                                 <th>Product Name</th>
                                 <th>Quantity</th>
-                                <th>Price</th>
+                                <th>Unit Price</th>
+                                <th>Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($order->soldItems as $index => $soldItem)
-                                <tr>
+                                <tr class="text-right">
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $soldItem->product_name }}</td>
                                     <td>{{ $soldItem->quantity }}</td>
-                                    <td>${{ $soldItem->product_price }}</td>
+                                    <td>${{ $soldItem->unit_price }}</td>
+                                    <td>${{ $soldItem->subtotal }}</td>
                                 </tr>
                             @endforeach
+                            <tr class="text-right">
+                                <td colspan="4"><strong>Total:</strong></td>
+                                <td><strong>${{ $totalPrice }}</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
