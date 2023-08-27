@@ -3,7 +3,7 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Orders</h2>
-            <a href="{{ route('orders.create') }}" class="btn btn-success mb-3">Create Order</a>
+            <a href="{{ route('order.create') }}" class="btn btn-success mb-3">Create Order</a>
         </div>
 
         <div class="table-responsive">
@@ -20,15 +20,15 @@
                 <tbody>
                     @foreach ($orders as $order)
                         <tr>
-                            <td><a href="orders/{{ $order->id }}"
+                            <td><a href="{{ route('order.show', $order->id) }}"
                                     class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
                             <td>{{ $order->customer_name }}</td>
                             <td>{{ $order->customer_email }}</td>
                             <td>{{ $order->payment_method }}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm"><a href="orders/{{ $order->id }}/edit"
+                                <button class="btn btn-primary btn-sm"><a href="{{ route('order.edit', $order->id) }}"
                                         class="text-white text-decoration-none">Edit</a></button>
-                                <form action="{{ route('orders.destroy', $order->id) }}" method="post" class="d-inline">
+                                <form action="{{ route('order.delete', $order->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"

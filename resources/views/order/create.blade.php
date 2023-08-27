@@ -9,7 +9,7 @@
                         <h1 class="h3">Create New Order</h1>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('orders.store') }}" method="POST">
+                        <form action="{{ route('order.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="customer_name">Customer Name:</label>

@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="mt-4 d-flex justify-content-start align-items-center">
-            <a href="{{ route('orders.index') }}" class="btn btn-secondary">Back to Orders</a>
-            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
-            <form action="{{ route('orders.destroy', $order->id) }}" method="post" class="d-inline ml-2">
+            <a href="{{ route('order.index') }}" class="btn btn-secondary">Back to Orders</a>
+            <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary btn-sm ml-2">Edit</a>
+            <form action="{{ route('order.delete', $order->id) }}" method="post" class="d-inline ml-2">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger btn-sm"

@@ -9,34 +9,30 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    //show all orders
+
     public function index()
     {
-        return view('orders.index',[
-            'orders' => Order::all(),
-        ]);
+        $orders = Order::all();
+        return view('order.index', compact('orders'));
     }
 
-    //show single order
-    public function show($id)
+    public function show($order_id)
     {
-        $order = Order::with('soldItems')->find($id);
-        //find the name of the product
+        $order = Order::with('soldItems')->find($order_id);
+
         $order->soldItems->map(function ($item) {
             $item->product_name = Product::find($item->product_id)->name;
             return $item;
         });
     
-        return view('orders.show', ['order' => $order]);
+        return view('order.show', compact('order'));
     }
 
-    //create new order
     public function create()
     {   
-        //return all products
         $products = Product::all();
 
-        return view('orders.create',['products' => $products]);
+        return view('order.create', compact('products'));
     }
 
     public function generateInvoiceNumber($length = 8)
@@ -51,85 +47,99 @@ class OrderController extends Controller
         return $invoiceNumber;
     }
   
-
-    //store new order
-    public function store()
+    public function store(Request $request)
     {
         $order = new Order();
+        
         $order->invoice_no = $this->generateInvoiceNumber();
-        $order->customer_email = request('customer_email');
-        $order->customer_name = request('customer_name');
-        $order->payment_method = request('payment_method');
+        
+        $order->customer_email = $request->customer_email;
+        
+        $order->customer_name = $request->customer_name;
+        
+        $order->payment_method = $request->payment_method;
+        
         $order->save();
 
-        $productIds = request('product_ids');
-        $quantities = request('quantities');
+        $productIds = $request->product_ids;
+        
+        $quantities = $request->quantities;
 
-        for ($i = 0; $i < count($productIds); $i++) {
+        for ($i = 0; $i < count($productIds); $i++) 
+        {
             $solditems = new Solditems();
+            
             $solditems->order_id = $order->id;
+            
             $solditems->product_id = $productIds[$i];
+            
             $solditems->quantity = $quantities[$i];
+            
             $solditems->save();
         }
 
-        return redirect()->route('orders.index');
+        return redirect()->route('order.index');
     }
 
-
-    //edit order
-    public function edit($id)
+    public function edit($order_id)
     {
-        $products = Product::all();
-        $order = Order::with('soldItems')->find($id);
+        $product = Product::all();
+        $order = Order::with('soldItems')->find($order_id);
         $order->soldItems->map(function ($item) {
             $item->product_name = Product::find($item->product_id)->name;
             return $item;
         });
-    
-        return view('orders.edit',[
-            'order' => Order::find($id),
-            'allproducts' => $products,
+        
+        return view('order.edit',[
+            'order' => $order,
+            'allproducts' => $product,
         ]);
     }
 
-    //update order
-public function update($id)
-{
-    $order = Order::find($id);
-    $order->customer_email = request('customer_email');
-    $order->customer_name = request('customer_name');
-    $order->payment_method = request('payment_method');
-    $order->save();
-    //update the updated_at column of the order
-    $order->touch();
 
+    public function update(Request $request, $order_id)
+    {
+        $order = Order::find($order_id);
+        
+        $order->customer_email = $request->customer_email;
+        
+        $order->customer_name = $request->customer_name;
+        
+        $order->payment_method = $request->payment_method;
+        
+        $order->save();
+        
+        $order->touch();
 
-    // Remove existing soldItems
-    $order->soldItems()->delete();
+        $order->soldItems()->delete();
 
-    $productIds = request('product_id');
-    $quantities = request('product_quantity');
+        $productIds = $request->product_id;
+        
+        $quantities = $request->product_quantity;
 
-    // Create new soldItems based on the new product IDs and quantities
-    for ($i = 0; $i < count($productIds); $i++) {
-        $soldItem = new Solditems();
-        $soldItem->order_id = $order->id;
-        $soldItem->product_id = $productIds[$i];
-        $soldItem->quantity = $quantities[$i];
-        $soldItem->save();
+        for ($i = 0; $i < count($productIds); $i++) 
+        {
+            $soldItem = new Solditems();
+            
+            $soldItem->order_id = $order->id;
+            
+            $soldItem->product_id = $productIds[$i];
+            
+            $soldItem->quantity = $quantities[$i];
+            
+            $soldItem->save();
+        }
+
+        return redirect()->route('order.show', $order_id);
     }
 
-    return redirect()->route('orders.show', $id);
-}
 
 
-
-    public function destroy($id)
+    public function destroy($order_id)
     {
-        $order = Order::find($id);
+        $order = Order::find($order_id);
         $order->delete();
-        return redirect()->route('orders.index');
+        return redirect()->route('order.index');
     }
     
 

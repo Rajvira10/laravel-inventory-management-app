@@ -8,7 +8,7 @@
                 Order Information
             </div>
             <div class="card-body">
-                <form action="{{ route('orders.update', $order->id) }}" method="POST">
+                <form action="{{ route('order.update', $order->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
