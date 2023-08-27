@@ -36,7 +36,8 @@ class OrderController extends Controller
 
     public function create()
     {   
-        $products = Product::all();
+        //show products that are not out of stock
+        $products = Product::where('stock', '>', 0)->get();
 
         return view('order.create', compact('products'));
     }
@@ -65,7 +66,7 @@ class OrderController extends Controller
         
         $order->payment_method = $request->payment_method;
         
-        $order->save();
+
 
         $productIds = $request->product_ids;
         
@@ -85,10 +86,19 @@ class OrderController extends Controller
             $product = Product::find($productIds[$i]);
             $product->stock = $product->stock - $quantities[$i];
 
+            if($product->stock < 0)
+            {
+                $product->stock = $product->stock + $quantities[$i];
+                $product->save();
+                return redirect()->route('order.create')->with('error', "Product is out of stock");
+            }
+
             $product->save();
 
             $solditems->save();
         }
+
+        $order->save();
 
         return redirect()->route('order.index');
     }
@@ -150,7 +160,7 @@ class OrderController extends Controller
 
 
 
-    public function destroy($order_id)
+    public function delete($order_id)
     {
         $order = Order::find($order_id);
         $order->delete();
