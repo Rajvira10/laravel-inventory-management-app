@@ -12,11 +12,11 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $sortColumn = $request->input('sort', 'created_at');
-        $sortDirection = 'desc';
-        $searchQuery = $request->input('search');
-
+        $sortColumn = $request->input('sort', 'created_at'); 
+        $sortDirection = $request->input('direction', 'desc');
         $orders = Order::orderBy($sortColumn, $sortDirection);
+
+        $searchQuery = $request->input('search');
 
         if ($searchQuery) {
             $orders->where(function ($query) use ($searchQuery) {
@@ -26,10 +26,11 @@ class OrderController extends Controller
             });
         }
 
-        $orders = $orders->paginate(10);
+        $orders = $orders->paginate(10); 
 
-        return view('order.index', compact('orders'));
+        return view('order.index', compact('orders', 'sortColumn', 'sortDirection'));
     }
+
 
 
     public function show($order_id)

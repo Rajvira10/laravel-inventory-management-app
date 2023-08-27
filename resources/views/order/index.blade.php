@@ -28,16 +28,35 @@
                         <th scope="col"><a class="text-light"
                                 href="{{ route('order.index', ['sort' => 'created_at']) }}">#</a></th>
                         <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'invoice_no']) }}">Invoice Number</a>
+                                href="{{ route('order.index', ['sort' => 'invoice_no', 'direction' => $sortColumn === 'invoice_no' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Invoice Number
+                                @if ($sortColumn === 'invoice_no')
+                                    @if ($sortDirection === 'asc')
+                                        <i class="fas fa-arrow-up"></i>
+                                    @else
+                                        <i class="fas fa-arrow-down"></i>
+                                    @endif
+                                @endif
+                            </a>
                         </th>
                         <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'amount']) }}">Amount</a></th>
-                        <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'customer_name']) }}">Customer
-                                Name</a></th>
-                        <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'customer_email']) }}">Customer
-                                Email</a></th>
+                                href="{{ route('order.index', ['sort' => 'amount', 'direction' => $sortColumn === 'amount' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Amount
+                                @if ($sortColumn === 'amount')
+                                    @if ($sortDirection === 'asc')
+                                        <i class="fas fa-arrow-up"></i>
+                                    @else
+                                        <i class="fas fa-arrow-down"></i>
+                                    @endif
+                                @endif
+                            </a>
+                        </th>
+                        <th scope="col">
+                            Customer Name
+                        </th>
+                        <th scope="col">
+                            Customer Email
+                        </th>
                         <th scope="col"><a class="text-light"
                                 href="{{ route('order.index', ['sort' => 'payment_method']) }}">Payment
                                 Method</a></th>
