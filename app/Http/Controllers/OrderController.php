@@ -10,11 +10,27 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::simplepaginate(10);
+        $sortColumn = $request->input('sort', 'created_at');
+        $sortDirection = 'desc';
+        $searchQuery = $request->input('search');
+
+        $orders = Order::orderBy($sortColumn, $sortDirection);
+
+        if ($searchQuery) {
+            $orders->where(function ($query) use ($searchQuery) {
+                $query->where('invoice_no', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('customer_name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('customer_email', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        $orders = $orders->paginate(10);
+
         return view('order.index', compact('orders'));
     }
+
 
     public function show($order_id)
     {
@@ -35,7 +51,6 @@ class OrderController extends Controller
 
     public function create()
     {   
-        //show products that are not out of stock
         $products = Product::where('stock', '>', 0)->get();
 
         return view('order.create', compact('products'));
@@ -71,6 +86,10 @@ class OrderController extends Controller
         
         $quantities = $request->quantities;
 
+        $order->save();
+
+        $totalPrice = 0;
+        
         for ($i = 0; $i < count($productIds); $i++) 
         {
             $solditems = new Solditems();
@@ -81,7 +100,6 @@ class OrderController extends Controller
             
             $solditems->quantity = $quantities[$i];
             
-            //remove items from product stock
             $product = Product::find($productIds[$i]);
             $product->stock = $product->stock - $quantities[$i];
 
@@ -91,14 +109,16 @@ class OrderController extends Controller
                 $product->save();
                 return redirect()->route('order.create')->with('error', "Product is out of stock");
             }
+            
+            $totalPrice =  $totalPrice + ($product->selling_price * $quantities[$i]);
 
             $product->save();
 
             $solditems->save();
         }
 
+        $order->amount = $totalPrice;
         $order->save();
-
         return redirect()->route('order.index');
     }
 
