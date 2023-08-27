@@ -132,6 +132,13 @@ class OrderController extends Controller
             return $item;
         });
         
+        foreach($order->soldItems as $item)
+        {
+            $individual_product = Product::find($item->product_id);
+            $individual_product->stock = $individual_product->stock + $item->quantity;
+            $individual_product->save();
+        }
+
         return view('order.edit',[
             'order' => $order,
             'allproducts' => $product,
@@ -173,6 +180,17 @@ class OrderController extends Controller
             $soldItem->quantity = $quantities[$i];
             
             $soldItem->save();
+
+            $product = Product::find($productIds[$i]);
+            $product->stock = $product->stock - $quantities[$i];
+
+            if($product->stock < 0)
+            {
+                $product->stock = $product->stock + $quantities[$i];
+                $product->save();
+                return redirect()->route('order.create')->with('error', "Product is out of stock");
+            }
+            $product->save();
         }
 
         return redirect()->route('order.show', $order_id);
