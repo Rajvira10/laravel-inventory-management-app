@@ -120,7 +120,7 @@ public function update($id)
         $soldItem->save();
     }
 
-    return redirect()->route('orders.index');
+    return redirect()->route('orders.show', $id);
 }
 
 

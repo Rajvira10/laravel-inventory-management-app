@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block mt-4">Edit Order</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Update Order</button>
                 </form>
             </div>
         </div>
