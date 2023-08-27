@@ -4,9 +4,8 @@
     <div class="container mt-4">
         <div class="text-start">
             <h2 class="mb-4">Edit Product</h2>
-            <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
                 <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}">

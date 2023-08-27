@@ -20,7 +20,7 @@
                 <div>
                     <button class="btn btn-primary"><a href="{{ $product->id }}/edit"
                             class="text-white text-decoration-none">Edit</a></button>
-                    <form action="{{ route('products.destroy', $product->id) }}" method="post" class="d-inline">
+                    <form action="{{ route('product.delete', $product->id) }}" method="post" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm"
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mt-4">
-            <a href="{{ route('products.index') }}" class="btn btn-secondary">Back to Products</a>
+            <a href="{{ route('product.index') }}" class="btn btn-secondary">Back to Products</a>
         </div>
     </div>
 @endsection

@@ -4,7 +4,7 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Products</h2>
-            <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Create Product</a>
+            <a href="{{ route('product.create') }}" class="btn btn-success mb-3">Create Product</a>
         </div>
 
         <div class="table-responsive">
@@ -22,20 +22,19 @@
                 <tbody>
                     @foreach ($products as $product)
                         <tr>
-                            <td><a href="products/{{ $product->id }}"
-                                    class="text-decoration-none text-primary">{{ $product->name }}</a></td>
+                            <td><a href="products/{{ $product->id }}" class="text-decoration-none text-primary">{{ $product->name }}</a></td>
                             <td>{{ $product->sku }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>${{ $product->purchase_price }}</td>
                             <td>${{ $product->selling_price }}</td>
                             <td>
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="post"
-                                    class="d-inline">
+                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                <form action="{{ route('product.delete', $product->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="confirm('Are you sure you want to delete this product?')">
+                                        Delete
+                                    </button>
                                 </form>
                             </td>
                         </tr>

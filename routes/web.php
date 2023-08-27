@@ -15,14 +15,19 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');  
-Route::get('/products/{id}', [ProductController::class, 'show']); 
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit'); 
-Route::put('/products/{id}', [ProductController::class, 'update']) ->name('products.update'); 
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); 
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
+Route::get('/', [ProductController::class, 'index'])->name('product.index');
+
+Route::group(['prefix' => 'product'], function() {
+    
+    Route::get('create', [ProductController::class, 'create'])->name('product.create'); 
+    Route::post('store', [ProductController::class, 'store'])->name('product.store'); 
+    Route::get('/{product_id}', [ProductController::class, 'show'])->name('product.show'); 
+    Route::get('edit/{product_id}', [ProductController::class, 'edit'])->name('product.edit'); 
+    Route::post('update/{product_id}', [ProductController::class, 'update']) ->name('product.update'); 
+    Route::delete('/{product_id}', [ProductController::class, 'delete'])->name('product.delete'); 
+
+});
 
 
 //Orders
