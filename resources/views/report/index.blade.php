@@ -96,9 +96,16 @@
         </div>
     </div>
 
-    <div class="mt-5">
-        <canvas id="profitLossChart" width="400" height="200"></canvas>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="mt-5">
+            <canvas id="profitLossChart" width="600" height="300"></canvas>
+        </div>
+        <div class="mt-5">
+            <canvas id="ordersPerDayChart" width="600" height="300"></canvas>
+        </div>
+
     </div>
+
 
 
     <script>
@@ -122,7 +129,7 @@
                         time: {
                             unit: 'day',
                             displayFormats: {
-                                day: 'MMM d' // Use lowercase 'd' for day of the month
+                                day: 'MMM d'
                             }
                         }
                     },
@@ -131,6 +138,44 @@
                         title: {
                             display: true,
                             text: 'Profit ($)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const ordersPerDayData = {!! json_encode($ordersPerDayData) !!};
+        const ctxOrders = document.getElementById('ordersPerDayChart').getContext('2d');
+        const ordersChart = new Chart(ctxOrders, {
+            type: 'bar',
+            data: {
+                labels: ordersPerDayData.dates,
+                datasets: [{
+                    label: 'Orders per Day',
+                    data: ordersPerDayData.values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'MMM d'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Orders'
                         }
                     }
                 }

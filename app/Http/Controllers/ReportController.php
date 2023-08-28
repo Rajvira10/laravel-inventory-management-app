@@ -47,7 +47,16 @@ class ReportController extends Controller
             $profitLossData['values'][] = $total;
         }
 
+        $ordersPerDayData = [
+            'dates' => [],
+            'values' => [],
+        ];
 
-        return view('report.index', compact('orders', 'sortColumn', 'sortDirection','profitLossData'));
+        foreach ($dailyTotals as $date => $total) {
+            $ordersPerDayData['dates'][] = $date;
+            $ordersPerDayData['values'][] = $total; 
+        }
+
+        return view('report.index', compact('orders', 'sortColumn', 'sortDirection','profitLossData', 'ordersPerDayData'));
     }
 }
