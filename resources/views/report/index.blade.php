@@ -5,6 +5,7 @@
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Report</h2>
         </div>
+
         <div class="row mb-3">
             <div class="col-md-6">
                 <form action="{{ route('report.index') }}" method="get">
@@ -94,4 +95,46 @@
             {{ $orders->links() }}
         </div>
     </div>
+
+    <div class="mt-5">
+        <canvas id="profitLossChart" width="400" height="200"></canvas>
+    </div>
+
+
+    <script>
+        const profitLossData = {!! json_encode($profitLossData) !!};
+        const ctx = document.getElementById('profitLossChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: profitLossData.dates,
+                datasets: [{
+                    label: 'Profit',
+                    data: profitLossData.values,
+                    borderColor: 'rgb(75, 192, 192)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'MMM d' // Use lowercase 'd' for day of the month
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Profit ($)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

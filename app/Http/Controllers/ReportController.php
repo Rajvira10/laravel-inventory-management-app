@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ReportController extends Controller
 {
@@ -23,6 +25,29 @@ class ReportController extends Controller
 
         $orders = $orders->paginate(10); 
 
-        return view('report.index', compact('orders', 'sortColumn', 'sortDirection'));
+        $profitLossData = [
+            'dates' => [],
+            'values' => [],
+        ];
+
+        $dailyTotals = [];
+
+        foreach ($orders as $order) {
+            $date = $order->created_at->format('Y-m-d');
+            
+            if (!isset($dailyTotals[$date])) {
+                $dailyTotals[$date] = 0;
+            }
+            
+            $dailyTotals[$date] += $order->p_l;
+        }
+
+        foreach ($dailyTotals as $date => $total) {
+            $profitLossData['dates'][] = $date;
+            $profitLossData['values'][] = $total;
+        }
+
+
+        return view('report.index', compact('orders', 'sortColumn', 'sortDirection','profitLossData'));
     }
 }
