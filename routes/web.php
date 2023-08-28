@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -44,3 +45,5 @@ Route::group(['prefix' => 'order'], function() {
 
 });
 
+
+Route::get('/report', [ReportController::class, 'index'])->name('report.index');
