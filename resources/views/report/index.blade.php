@@ -75,9 +75,9 @@
                                     class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
                             <td>
                                 @if ($order->p_l > 0)
-                                    <span style="color: rgb(4, 210, 4);">+${{ $order->p_l }}</span>
+                                    <span style="color: rgb(4, 210, 4);">+BDT {{ $order->p_l }}</span>
                                 @elseif ($order->p_l < 0)
-                                    <span style="color: red;">-${{ -$order->p_l }}</span>
+                                    <span style="color: red;">-BDT {{ -$order->p_l }}</span>
                                 @else
                                     ${{ $order->p_l }}
                                 @endif
@@ -137,7 +137,7 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Profit ($)'
+                            text: 'Profit (BDT)'
                         }
                     }
                 }

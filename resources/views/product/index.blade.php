@@ -28,8 +28,8 @@
                                     class="text-decoration-none text-primary">{{ $product->name }}</a></td>
                             <td>{{ $product->sku }}</td>
                             <td>{{ $product->stock }}</td>
-                            <td>${{ $product->purchase_price }}</td>
-                            <td>${{ $product->selling_price }}</td>
+                            <td>BDT {{ $product->purchase_price }}</td>
+                            <td>BDT {{ $product->selling_price }}</td>
                             <td>
                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                 <form action="{{ route('product.delete', $product->id) }}" method="post" class="d-inline">

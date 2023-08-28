@@ -84,7 +84,7 @@
                             <td>{{ $order->created_at->format('d-m-Y') }}</td>
                             <td><a href="{{ route('order.show', $order->id) }}"
                                     class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
-                            <td>${{ $order->amount }}</td>
+                            <td>BDT {{ $order->amount }}</td>
                             <td>{{ $order->customer_name }}</td>
                             <td>{{ $order->customer_email }}</td>
                             <td>{{ $order->payment_method }}</td>

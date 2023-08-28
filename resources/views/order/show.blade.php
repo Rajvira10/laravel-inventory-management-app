@@ -16,7 +16,7 @@
                 <p><strong class="text-secondary">Payment Method:</strong> {{ $order->payment_method }}</p>
                 <p><strong class="text-secondary">Created At:</strong> {{ $order->created_at->format('F j, Y g:i A') }}</p>
                 <p><strong class="text-secondary">Updated At:</strong> {{ $order->updated_at->format('F j, Y g:i A') }}</p>
-                <p><strong class="text-success">Total Price:</strong> ${{ $order->amount }} </p>
+                <p><strong class="text-success">Total Price:</strong> BDT {{ $order->amount }} </p>
             </div>
         </div>
         <div class="mt-4 d-flex justify-content-start align-items-center">
@@ -50,13 +50,13 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $soldItem->product_name }}</td>
                                     <td>{{ $soldItem->quantity }}</td>
-                                    <td>${{ $soldItem->unit_price }}</td>
-                                    <td>${{ $soldItem->subtotal }}</td>
+                                    <td>BDT {{ $soldItem->unit_price }}</td>
+                                    <td>BDT {{ $soldItem->subtotal }}</td>
                                 </tr>
                             @endforeach
                             <tr class="text-right">
                                 <td colspan="4"><strong>Total:</strong></td>
-                                <td><strong>${{ $order->amount }}</strong></td>
+                                <td><strong>BDT {{ $order->amount }}</strong></td>
                             </tr>
                         </tbody>
                     </table>

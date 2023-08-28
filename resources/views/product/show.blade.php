@@ -11,8 +11,8 @@
                 <hr class="bg-primary">
                 <p class="text-secondary"><strong>SKU:</strong> {{ $product->sku }}</p>
                 <p class="text-secondary"><strong>Stock:</strong> {{ $product->stock }}</p>
-                <p class="text-secondary"><strong>Purchase Price:</strong> ${{ $product->purchase_price }}</p>
-                <p class="text-secondary"><strong>Selling Price:</strong> ${{ $product->selling_price }}</p>
+                <p class="text-secondary"><strong>Purchase Price:</strong> BDT {{ $product->purchase_price }}</p>
+                <p class="text-secondary"><strong>Selling Price:</strong> BDT {{ $product->selling_price }}</p>
                 <div class="mb-4">
                     <strong class="text-secondary">Description:</strong>
                     <p>{{ $product->description ?: 'No description available.' }}</p>

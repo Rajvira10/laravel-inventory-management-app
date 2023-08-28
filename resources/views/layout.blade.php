@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inventory</title>
+    <link rel="stylesheet" href="{{ asset('main.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/eff335ac26.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('product.index') }}">Inventory System</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Inventory System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,9 +40,10 @@
         </div>
     </nav>
 
-
-    <div class="container pt-5 py-5">
-        @yield('content')
+    <div class="bg">
+        <div class="container pt-5 py-5 ">
+            @yield('content')
+        </div>
     </div>
 
 

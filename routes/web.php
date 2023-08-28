@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Solditems;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
@@ -16,11 +19,27 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+//homepage
+Route::get('/', function () {
+    $total_sales = Order::sum('amount');
 
-Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    $total_gross_profit = Order::sum('p_l');
+
+    $total_orders = Order::count();
+
+    $total_products_sold = Solditems::sum('quantity');
+
+    $products_in_stock = Product::sum('stock');
+
+    $number_of_products = Product::count();
+
+    return view('welcome', compact('total_sales','total_gross_profit', 'total_orders', 'total_products_sold', 'products_in_stock', 'number_of_products'));
+})->name('home');
+
 
 Route::group(['prefix' => 'product'], function() {
     
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::get('create', [ProductController::class, 'create'])->name('product.create'); 
     Route::post('store', [ProductController::class, 'store'])->name('product.store'); 
     Route::get('/{product_id}', [ProductController::class, 'show'])->name('product.show'); 
