@@ -38,7 +38,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'product'], function() {
-    
+    Route::get('export', [ProductController::class, 'export'])->name('product.export');
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::get('create', [ProductController::class, 'create'])->name('product.create'); 
     Route::post('store', [ProductController::class, 'store'])->name('product.store'); 

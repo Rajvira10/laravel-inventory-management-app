@@ -4,7 +4,11 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Products</h2>
-            <a href="{{ route('product.create') }}" class="btn btn-success mb-3">Create Product</a>
+            <div>
+                <a href="{{ route('product.export') }}" class="btn btn-success mb-3">Export as Excel</a>
+                <a href="{{ route('product.create') }}" class="btn btn-success mb-3">Create Product</a>
+            </div>
+
         </div>
 
         <div class="table-responsive">
