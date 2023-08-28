@@ -37,17 +37,14 @@ class OrderController extends Controller
     {
         $order = Order::with('soldItems')->find($order_id);
 
-        $totalPrice = 0;
-
         $order->soldItems->map(function ($item) use (&$totalPrice) {
             $product = Product::find($item->product_id);
             $item->product_name = $product->name;
             $item->unit_price = $product->selling_price;
             $item->subtotal = $product->selling_price * $item->quantity;
-            $totalPrice += $item->subtotal;
         });
 
-        return view('order.show', compact('totalPrice', 'order'));
+        return view('order.show', compact( 'order'));
     }
 
     public function create()
