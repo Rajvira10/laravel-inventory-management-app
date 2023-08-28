@@ -102,10 +102,18 @@ class ProductController extends Controller
     }
 
 
-     public function export() 
+    public function export(Request $request) 
     {
+        $format = $request->format;
+
+        if($format == 'csv')
+        {
+            return Excel::download(new ProductsExport, 'products.csv');
+        }
+
         return Excel::download(new ProductsExport, 'products.xlsx');
     }
+
 
 
 }

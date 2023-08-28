@@ -4,8 +4,25 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Products</h2>
-            <div>
-                <a href="{{ route('product.export') }}" class="btn btn-success mb-3">Export as Excel</a>
+            <div class="mb-2 d-flex ">
+                <div class="dropdown mr-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Export
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('product.export', ['format' => 'excel']) }}">
+                                Excel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('product.export', ['format' => 'csv']) }}">
+                                CSV
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <a href="{{ route('product.create') }}" class="btn btn-success mb-3">Create Product</a>
             </div>
 
@@ -57,5 +74,6 @@
         <div class="d-flex justify-content-center mt-4">
             {{ $products->links() }}
         </div>
+
     </div>
 @endsection
