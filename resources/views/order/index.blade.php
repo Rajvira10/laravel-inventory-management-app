@@ -25,9 +25,22 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'created_at']) }}">#</a></th>
-                        <th scope="col"><a class="text-light"
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            <a class="text-light"
+                                href="{{ route('order.index', ['sort' => 'created_at', 'direction' => $sortColumn === 'created_at' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                Date
+                                @if ($sortColumn === 'created_at')
+                                    @if ($sortDirection === 'asc')
+                                        <i class="fas fa-arrow-up"></i>
+                                    @else
+                                        <i class="fas fa-arrow-down"></i>
+                                    @endif
+                                @endif
+                            </a>
+                        </th>
+                        <th scope="col">
+                            <a class="text-light"
                                 href="{{ route('order.index', ['sort' => 'invoice_no', 'direction' => $sortColumn === 'invoice_no' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
                                 Invoice Number
                                 @if ($sortColumn === 'invoice_no')
@@ -68,6 +81,7 @@
                     @foreach ($orders as $index => $order)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+                            <td>{{ $order->created_at->format('d-m-Y') }}</td>
                             <td><a href="{{ route('order.show', $order->id) }}"
                                     class="text-decoration-none text-primary">{{ $order->invoice_no }}</a></td>
                             <td>${{ $order->amount }}</td>

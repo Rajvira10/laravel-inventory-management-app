@@ -90,6 +90,8 @@ class OrderController extends Controller
         $order->save();
 
         $totalPrice = 0;
+
+        $profit = 0;
         
         for ($i = 0; $i < count($productIds); $i++) 
         {
@@ -113,12 +115,15 @@ class OrderController extends Controller
             
             $totalPrice =  $totalPrice + ($product->selling_price * $quantities[$i]);
 
+            $profit = $profit + (($product->selling_price - $product->purchase_price) * $quantities[$i]);
+
             $product->save();
 
             $solditems->save();
         }
 
         $order->amount = $totalPrice;
+        $order->p_l = $profit;
         $order->save();
         return redirect()->route('order.index');
     }
@@ -166,7 +171,11 @@ class OrderController extends Controller
         
         $quantities = $request->product_quantity;
 
+        $order->amount = 0;
 
+        $totalPrice = 0;
+
+        $profit = 0;
 
         for ($i = 0; $i < count($productIds); $i++) 
         {   
@@ -190,8 +199,17 @@ class OrderController extends Controller
                 $product->save();
                 return redirect()->route('order.create')->with('error', "Product is out of stock");
             }
+
+            $totalPrice =  $totalPrice + ($product->selling_price * $quantities[$i]);
+
+            $profit = $profit + (($product->selling_price - $product->purchase_price) * $quantities[$i]);
+
             $product->save();
         }
+
+        $order->amount = $totalPrice;
+        $order->p_l = $profit;
+        $order->save();
 
         return redirect()->route('order.show', $order_id);
     }
