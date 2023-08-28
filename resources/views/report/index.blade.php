@@ -146,7 +146,7 @@
     </script>
 
     <script>
-        const ordersPerDayData = {!! json_encode($ordersPerDayData) !!};
+        const ordersPerDayData = {!! json_encode($orderCountData) !!};
         const ctxOrders = document.getElementById('ordersPerDayChart').getContext('2d');
         const ordersChart = new Chart(ctxOrders, {
             type: 'bar',
@@ -182,4 +182,5 @@
             }
         });
     </script>
+
 @endsection
