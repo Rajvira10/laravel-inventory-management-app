@@ -5,6 +5,20 @@
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Report</h2>
         </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form action="{{ route('report.index') }}" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="Search by invoice"
+                            value="{{ request()->input('search') }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
