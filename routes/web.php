@@ -65,5 +65,4 @@ Route::group(['prefix' => 'order'], function() {
 
 });
 
-
 Route::get('/report', [ReportController::class, 'index'])->name('report.index');

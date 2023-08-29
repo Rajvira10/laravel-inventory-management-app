@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container ">
-        <div class="row d-flex justify-content-start align-items-center">
+        <div class="row mt-5 d-flex justify-content-start align-items-center">
             <div class="col-md-4 mb-4">
                 @include('components.card', [
                     'backgroundColor' => '#f44336',

@@ -18,7 +18,7 @@
                     <p>{{ $product->description ?: 'No description available.' }}</p>
                 </div>
                 <div>
-                    <button class="btn btn-primary"><a href="{{ $product->id }}/edit"
+                    <button class="btn btn-primary"><a href={{ route('product.edit', $product->id) }}
                             class="text-white text-decoration-none">Edit</a></button>
                     <form action="{{ route('product.delete', $product->id) }}" method="post" class="d-inline">
                         @csrf

@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container py-5">
-        <div class="row d-flex justify-content-between align-items-center">
-            <h2 class="mb-4 fw-bold text-primary">Products</h2>
-            <div class="mb-2 d-flex ">
+        <div class="row mb-4 d-flex justify-content-between align-items-center">
+            <h2 class="fw-bold text-primary">Products</h2>
+            <div class="d-flex ">
                 <div class="dropdown mr-3">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
