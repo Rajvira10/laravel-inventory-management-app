@@ -40,6 +40,15 @@
         </div>
     </nav>
 
+    @foreach (session('low_stock', []) as $notification)
+        <div class="alert alert-warning alert-dismissible mt-3 mx-3">
+            {{ $notification }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endforeach
+
     <div class="bg">
         <div class="container pt-5 py-5 ">
             @yield('content')

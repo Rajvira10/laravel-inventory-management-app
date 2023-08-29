@@ -92,6 +92,8 @@ class OrderController extends Controller
 
         $profit = 0;
         
+        $messages = session('messages', []);
+
         for ($i = 0; $i < count($productIds); $i++) 
         {
             $solditems = new Solditems();
@@ -118,16 +120,23 @@ class OrderController extends Controller
 
             $product->save();
 
+            if ($product->stock < 10) {
+                $messages[] = $product->name . ' has low stock!';
+            }
+
             $solditems->save();
         }
-
+        
+        session()->flash('low_stock', $messages);
+        
         $order->amount = $totalPrice;
         $order->p_l = $profit;
         $order->save();
+        
 
         Mail::to($order->customer_email)->send(new OrderConfirmation($order));
         
-
+        
         return redirect()->route('order.index');
     }
 
