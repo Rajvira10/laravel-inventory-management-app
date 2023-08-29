@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Solditems;
 use Illuminate\Http\Request;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -122,6 +124,10 @@ class OrderController extends Controller
         $order->amount = $totalPrice;
         $order->p_l = $profit;
         $order->save();
+
+        Mail::to($order->customer_email)->send(new OrderConfirmation($order));
+        
+
         return redirect()->route('order.index');
     }
 
