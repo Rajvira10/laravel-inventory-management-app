@@ -89,9 +89,6 @@ class ProductController extends Controller
         
         $product->save();
         
-        if ($product->stock < 10) {
-            session()->flash('low_stock', 'Product ' . $product->name . ' has low stock!');
-        }
         
         return redirect()->route('product.index');
     }
