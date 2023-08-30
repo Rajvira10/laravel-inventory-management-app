@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Solditems;
+use App\Jobs\SendEmailJob;
 use Illuminate\Http\Request;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
@@ -148,8 +149,9 @@ class OrderController extends Controller
         $order->save();
         
 
-        Mail::to($order->customer_email)->send(new OrderConfirmation($order));
+        // Mail::to($order->customer_email)->send(new OrderConfirmation($order));
         
+        SendEmailJob::dispatch($order->customer_email, $order);
         
         return redirect()->route('order.index');
     }
