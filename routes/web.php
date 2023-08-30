@@ -4,9 +4,11 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Solditems;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,27 @@ Route::get('/', function () {
 })->name('home');
 
 
+Route::group(['prefix' => 'auth'], function()
+{   
+    Route::get('login', [AuthController::class, 'showlogin'])->name('auth.showlogin');
+    Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('store', [AuthController::class, 'store'])->name('auth.store');
+}
+);
+
+Route::group(['prefix' => 'admin'], function()
+{   
+    Route::get('login', [AdminLoginController::class, 'showLoginForm'])->name('admin.showlogin');
+    Route::post('login', [AdminLoginController::class, 'login'])->name('auth.admin-login');
+    // Route::get('register', [AuthController::class, 'register'])->name('auth.register');
+    // Route::post('store', [AuthController::class, 'store'])->name('auth.store');
+}
+);
+
+
+Route::middleware('auth:admin')->group(function () {
 Route::group(['prefix' => 'product'], function() {
     
     Route::get('export/', [ProductController::class, 'export'])->name('product.export');
@@ -49,20 +72,21 @@ Route::group(['prefix' => 'product'], function() {
     Route::delete('/{product_id}', [ProductController::class, 'delete'])->name('product.delete'); 
 
 });
-
-
-//Orders
-
-Route::group(['prefix' => 'order'], function() {
-
-    Route::get('/', [OrderController::class, 'index'])->name('order.index');
-    Route::get('/create', [OrderController::class, 'create'])-> name('order.create');
-    Route::post('store', [OrderController::class, 'store']) -> name('order.store');
-    Route::get('/{order_id}', [OrderController::class, 'show'])-> name('order.show');
-    Route::get('edit/{order_id}', [OrderController::class, 'edit'])-> name('order.edit');
-    Route::put('update/{order_id}', [OrderController::class, 'update'])-> name('order.update');
-    Route::delete('/{order_id}', [OrderController::class, 'delete'])-> name('order.delete');
-
 });
 
-Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+//Orders
+Route::middleware('auth:admin')->group(function () {
+    Route::group(['prefix' => 'order'], function() {
+
+        Route::get('/', [OrderController::class, 'index'])->name('order.index');
+        Route::get('/create', [OrderController::class, 'create'])-> name('order.create');
+        Route::post('store', [OrderController::class, 'store']) -> name('order.store');
+        Route::get('/{order_id}', [OrderController::class, 'show'])-> name('order.show');
+        Route::get('edit/{order_id}', [OrderController::class, 'edit'])-> name('order.edit');
+        Route::put('update/{order_id}', [OrderController::class, 'update'])-> name('order.update');
+        Route::delete('/{order_id}', [OrderController::class, 'delete'])-> name('order.delete');
+
+    });
+});
+
+Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('auth:admin');

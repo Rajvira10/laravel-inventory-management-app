@@ -28,6 +28,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                <?php if (Auth::guard('admin')->check()): ?>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('product.index') }}">Products</a>
                 </li>
@@ -37,7 +38,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('report.index') }}">Report</a>
                 </li>
+                <?php endif; ?>
 
+                <?php if (Auth::check() || Auth::guard('admin')->check()): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
+                </li>
+                <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('auth.showlogin') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('auth.register') }}">Register</a>
+                </li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>

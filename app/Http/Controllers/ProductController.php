@@ -8,7 +8,13 @@ use App\Exports\ProductsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
-{
+{   
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
         //paginate products

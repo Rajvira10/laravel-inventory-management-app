@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\Mail;
 class OrderController extends Controller
 {
 
-    public function index(Request $request)
+    public function __construct()
     {
+        $this->middleware('auth:admin');
+    }
+
+    public function index(Request $request)
+    {   
         $sortColumn = $request->input('sort', 'created_at'); 
         $sortDirection = $request->input('direction', 'desc');
         $orders = Order::orderBy($sortColumn, $sortDirection);
