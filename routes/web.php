@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminLoginController;
 
 /*
@@ -90,3 +91,7 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('auth:admin');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/create', [DashboardController::class, 'create'])->name('user_order.create');
+Route::post('/store', [DashboardController::class, 'store'])->name('dashboard.store');

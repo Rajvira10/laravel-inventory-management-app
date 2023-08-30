@@ -73,7 +73,6 @@
             </div>
         </div>
     </div>
-    <!-- Inside your existing script tag -->
     <script>
         document.getElementById('addProduct').addEventListener('click', function() {
             var tableBody = document.querySelector('table tbody');
