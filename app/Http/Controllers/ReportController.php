@@ -23,7 +23,9 @@ class ReportController extends Controller
             });
         }
 
-        $orders = $orders->paginate(10); 
+        $paginatedorders = $orders->paginate(10); 
+        //get orders of last 7 days
+        $orders = Order::where('created_at', '>=', Carbon::now()->subDays(7))->get();
 
         $profitLossData = [
             'dates' => [],
@@ -60,6 +62,6 @@ class ReportController extends Controller
             $orderCountData['values'][] = $count;
         }
 
-        return view('report.index', compact('orders', 'sortColumn', 'sortDirection', 'profitLossData', 'orderCountData'));
+        return view('report.index', compact('paginatedorders', 'sortColumn', 'sortDirection', 'profitLossData', 'orderCountData'));
     }
 }

@@ -67,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $index => $order)
+                    @foreach ($paginatedorders as $index => $order)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $order->created_at->format('d-m-Y') }}</td>
@@ -91,8 +91,8 @@
 
 
         </div>
-        <div class="d-flex justify-content-center mt-4">
-            {{ $orders->links() }}
+        <div class="mt-4">
+            {{ $paginatedorders->links() }}
         </div>
     </div>
 

@@ -69,7 +69,18 @@ class OrderController extends Controller
     }
   
     public function store(Request $request)
-    {
+    {   
+
+        $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'customer_email' => 'required|email|max:255',
+            'payment_method' => 'required|in:credit_card,paypal,Cash',
+            'product_ids' => 'required|array',
+            'product_ids.*' => 'exists:products,id',
+            'quantities' => 'required|array',
+            'quantities.*' => 'required|integer|min:1',
+        ]);
+
         $order = new Order();
         
         $order->invoice_no = $this->generateInvoiceNumber();
@@ -79,9 +90,7 @@ class OrderController extends Controller
         $order->customer_name = $request->customer_name;
         
         $order->payment_method = $request->payment_method;
-        
-
-
+    
         $productIds = $request->product_ids;
         
         $quantities = $request->quantities;

@@ -24,10 +24,20 @@
                             <div class="form-group">
                                 <label for="customer_name">Customer Name:</label>
                                 <input type="text" name="customer_name" class="form-control" required>
+                                @error('customer_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="customer_email">Customer Email:</label>
                                 <input type="email" name="customer_email" class="form-control" required>
+                                @error('customer_email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="payment_method">Payment Method:</label>
@@ -36,6 +46,11 @@
                                     <option value="paypal">PayPal</option>
                                     <option value="Cash">Cash</option>
                                 </select>
+                                @error('payment_method')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div id="product-fields">
@@ -47,10 +62,20 @@
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('product_ids.*')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="quantity">Quantity:</label>
                                         <input type="number" name="quantities[]" class="form-control" required>
+                                        @error('quantities.*')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
