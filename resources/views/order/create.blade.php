@@ -42,7 +42,7 @@
                                 <div class="product-field">
                                     <div class="form-group">
                                         <label for="product">Product:</label>
-                                        <select name="product_ids[]" class="form-control" required>
+                                        <select name="product_ids[]" class="form-control " id="product_list" required>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                                             @endforeach
@@ -74,6 +74,9 @@
         addProductButton.addEventListener("click", function() {
             const productField = document.querySelector(".product-field").cloneNode(true);
             productFieldsContainer.appendChild(productField);
+            const newProductSelect = productField.querySelector("#product_list");
+            new Selectr(newProductSelect);
         });
+        new Selectr(document.getElementById('product_list'));
     });
 </script>
