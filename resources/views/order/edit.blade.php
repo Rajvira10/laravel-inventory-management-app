@@ -21,16 +21,36 @@
                         <input type="email" name="customer_email" class="form-control"
                             value="{{ $order->customer_email }}" required>
                     </div>
-                    <div class="form-group">
-                        <label for="payment_method">Payment Method:</label>
-                        <select name="payment_method" class="form-control" required>
-                            <option value="credit_card" {{ $order->payment_method === 'credit_card' ? 'selected' : '' }}>
-                                Credit Card</option>
-                            <option value="paypal" {{ $order->payment_method === 'paypal' ? 'selected' : '' }}>PayPal
-                            </option>
-                            <option value="Cash" {{ $order->payment_method === 'Cash' ? 'selected' : '' }}>Cash</option>
-                        </select>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="payment_method">Payment Method:</label>
+                            <select name="payment_method" class="form-control" required>
+                                <option value="credit_card"
+                                    {{ $order->payment_method === 'credit_card' ? 'selected' : '' }}>
+                                    Credit Card</option>
+                                <option value="paypal" {{ $order->payment_method === 'paypal' ? 'selected' : '' }}>PayPal
+                                </option>
+                                <option value="Cash" {{ $order->payment_method === 'Cash' ? 'selected' : '' }}>Cash
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="status">Status:</label>
+                            <select name="status" class="form-control" required>
+                                <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>
+                                    Pending</option>
+                                <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>
+                                    Processing
+                                </option>
+                                <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Completed
+                                </option>
+                                <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled
+                                </option>
+                            </select>
+                        </div>
                     </div>
+
 
                     <div class="card mt-2">
                         <div class="card-body">

@@ -101,6 +101,8 @@ class OrderController extends Controller
         
         $quantities = $request->quantities;
 
+        $order-> status = 'completed';
+
         $order->save();
 
         $totalPrice = 0;
@@ -148,9 +150,6 @@ class OrderController extends Controller
         $order->p_l = $profit;
         $order->save();
         
-
-        // Mail::to($order->customer_email)->send(new OrderConfirmation($order));
-        
         SendEmailJob::dispatch($order->customer_email, $order);
         
         return redirect()->route('order.index');
@@ -159,7 +158,9 @@ class OrderController extends Controller
     public function edit($order_id)
     {
         $product = Product::all();
+
         $order = Order::with('soldItems')->find($order_id);
+
         $order->soldItems->map(function ($item) {
             $item->product_name = Product::find($item->product_id)->name;
             return $item;
@@ -168,7 +169,9 @@ class OrderController extends Controller
         foreach($order->soldItems as $item)
         {
             $individual_product = Product::find($item->product_id);
+
             $individual_product->stock = $individual_product->stock + $item->quantity;
+
             $individual_product->save();
         }
 
@@ -188,7 +191,9 @@ class OrderController extends Controller
         $order->customer_name = $request->customer_name;
         
         $order->payment_method = $request->payment_method;
-        
+
+        $order->status = $request->status;
+         
         $order->save();
         
         $order->touch();

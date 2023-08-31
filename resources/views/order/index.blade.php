@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <div class="container py-5">
+    <div class="py-5">
         <div class="row d-flex justify-content-between align-items-center">
             <h2 class="mb-4 fw-bold text-primary">Orders</h2>
             <a href="{{ route('order.create') }}" class="btn btn-success mb-3">Create Order</a>
@@ -70,9 +70,12 @@
                         <th scope="col">
                             Customer Email
                         </th>
-                        <th scope="col"><a class="text-light"
-                                href="{{ route('order.index', ['sort' => 'payment_method']) }}">Payment
-                                Method</a></th>
+
+                        {{-- <th scope="col"><a class="text-light"
+                                href="{{ route('order.index', ['sort' => 'payment_method']) }}">Payment</a></th> --}}
+                        <th scope="col">
+                            Status
+                        </th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -87,7 +90,8 @@
                             <td>BDT {{ $order->amount }}</td>
                             <td>{{ $order->customer_name }}</td>
                             <td>{{ $order->customer_email }}</td>
-                            <td>{{ $order->payment_method }}</td>
+                            {{-- <td>{{ $order->payment_method }}</td> --}}
+                            <td class="text-capitalize">{{ $order->status }}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm"><a href="{{ route('order.edit', $order->id) }}"
                                         class="text-white text-decoration-none">Edit</a></button>

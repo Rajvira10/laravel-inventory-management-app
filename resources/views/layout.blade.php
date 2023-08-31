@@ -69,7 +69,7 @@
     @endforeach
 
     <div class="bg">
-        <div class="container pt-5 py-5 ">
+        <div class="container-xl pt-5 py-5 ">
             @yield('content')
         </div>
     </div>

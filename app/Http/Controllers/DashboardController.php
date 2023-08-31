@@ -14,16 +14,21 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            if (Auth::guard('admin')->check()) {
-                $orders = Order::all();
-            } elseif (Auth::guard('web')->check()) {
-                $user = Auth::guard('web')->user();
-                $orders = Order::where('customer_email', $user->email)->get();            
-            }
-            return view('dashboard', compact('orders'));
+            $user = Auth::guard('web')->user();
+            $orders = Order::where('customer_email', $user->email)
+                ->orderBy('created_at', 'desc') 
+                ->paginate(10);
+            return view('dashboard', compact('orders'));            
+        }
+        else if(Auth::guard('admin')->check()){
+            $orders = Order::all();
+            return view('admin-dashboard', compact('orders')); 
+        }
+        else{
+            return view('auth.login'); 
         }
 
-        return view('auth.showlogin'); 
+        
     }
 
     public function create()

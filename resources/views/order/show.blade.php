@@ -14,6 +14,7 @@
                 <p><strong class="text-secondary">Customer Name:</strong> {{ $order->customer_name }}</p>
                 <p><strong class="text-secondary">Customer Email:</strong> {{ $order->customer_email }}</p>
                 <p><strong class="text-secondary">Payment Method:</strong> {{ $order->payment_method }}</p>
+                <p class="text-capitalize"><strong class="text-secondary">Status:</strong> {{ $order->status }}</p>
                 <p><strong class="text-secondary">Created At:</strong> {{ $order->created_at->format('F j, Y g:i A') }}</p>
                 <p><strong class="text-secondary">Updated At:</strong> {{ $order->updated_at->format('F j, Y g:i A') }}</p>
                 <p><strong class="text-success">Total Price:</strong> BDT {{ $order->amount }} </p>
