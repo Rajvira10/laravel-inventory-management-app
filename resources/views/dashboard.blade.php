@@ -24,7 +24,8 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td>{{ $order->created_at->format('d-m-Y') }}</td>
-                                            <td><a href="{{ route('order.show', $order->id) }}">{{ $order->id }}</a></td>
+                                            <td><a href="{{ route('dashboard.show', $order->id) }}">{{ $order->id }}</a>
+                                            </td>
                                             <td>${{ $order->amount }}</td>
                                         </tr>
                                     @endforeach

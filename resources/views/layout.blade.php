@@ -42,7 +42,7 @@
 
                 <?php if (Auth::check() || Auth::guard('admin')->check()): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>

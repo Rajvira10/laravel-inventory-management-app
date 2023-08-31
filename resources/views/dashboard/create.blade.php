@@ -10,6 +10,19 @@
             <div class="card-body">
                 <p><strong class="text-secondary">Customer Name:</strong> {{ auth()->user()->name }}</p>
                 <p><strong class="text-secondary">Customer Email:</strong> {{ auth()->user()->email }}</p>
+                <div class="form-group">
+                    <label for="payment_method">Payment Method:</label>
+                    <select name="payment_method" class="form-control" required>
+                        <option value="credit_card">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                    @error('payment_method')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="card mt-2">
