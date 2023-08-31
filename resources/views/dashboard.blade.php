@@ -7,8 +7,26 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         Your Orders
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Export
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dashboard.export', ['format' => 'excel']) }}">
+                                        Excel
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dashboard.export', ['format' => 'csv']) }}">
+                                        CSV
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body">
                         @if ($orders->count() > 0)

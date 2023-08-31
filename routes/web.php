@@ -92,7 +92,9 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::get('/report', [ReportController::class, 'index'])->name('report.index')->middleware('auth:admin');
 
+Route::get('export/', [DashboardController::class, 'export'])->name('dashboard.export');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/create', [DashboardController::class, 'create'])->name('user_order.create');
 Route::post('/store', [DashboardController::class, 'store'])->name('dashboard.store');
 Route::get('/{order_id}', [DashboardController::class, 'show'])->name('dashboard.show');
+

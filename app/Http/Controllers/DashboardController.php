@@ -7,7 +7,9 @@ use App\Models\Product;
 use App\Models\Solditems;
 use App\Jobs\SendEmailJob;
 use Illuminate\Http\Request;
+use App\Exports\UserOrdersExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -124,5 +126,17 @@ class DashboardController extends Controller
         });
 
         return view('dashboard.show', compact( 'order'));
+    }
+
+    public function export(Request $request) 
+    {
+        $format = $request->format;
+
+        if($format == 'csv')
+        {
+            return Excel::download(new UserOrdersExport, 'orders.csv');
+        }
+
+        return Excel::download(new UserOrdersExport, 'orders.xlsx');
     }
 }
