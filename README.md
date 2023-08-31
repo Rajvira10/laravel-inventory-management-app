@@ -4,8 +4,9 @@ A fullstack inventory management app for a grocery shop with a dashboard for use
 
 1. Laravel
 2. Bootstrap 5
-3. Queues/Jobs for Email Notifications (Mailgun)
-4. Task Scheduler
-5. Authentication/Authorization
-6. Laravel Excel
-7. Selectr
+3. MySQL
+4. Queues/Jobs for Email Notifications (Mailgun)
+5. Task Scheduler
+6. Authentication/Authorization
+7. Laravel Excel
+8. Selectr
