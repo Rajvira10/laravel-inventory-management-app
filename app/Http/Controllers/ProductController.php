@@ -32,6 +32,8 @@ class ProductController extends Controller
     {
         $product = new Product();
 
+        
+
         $product->name = $request->name;
 
         $product->sku = $request->sku;
