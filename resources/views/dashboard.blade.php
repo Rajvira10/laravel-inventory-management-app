@@ -65,7 +65,7 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header">
-                        Profile Information2
+                        Profile Information8461
                     </div>
                     <div class="card-body">
                         <p>Name: {{ Auth::user()->name }}</p>
